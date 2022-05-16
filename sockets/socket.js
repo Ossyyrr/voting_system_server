@@ -14,8 +14,18 @@ io.on('connection', client => {
          console.log(payload);
 
          // Emite un mensaje a todos los clientes conectados
-         io.emit('mensaje', {admin: 'nuevo mensaje'}); 
+         io.emit('mensaje', {admin: 'ADMIN mensaje'}); 
+
      })
+
+     client.on('emitir-mensaje', (payload)=>{
+        console.log('nuevo-mensaje!!');
+        console.log(payload);
+
+
+       // io.emit('nuevo-mensaje', 'nuevo mensaje emitido desde el back');  // !Emite un mensaje a todos los clientes conectados
+        client.broadcast.emit('emitir-mensaje','emite a todos menos al cliente que lo crea: ' + payload);        //! Emite un mensaje a todos los clientes conectados menos al que lo creó
+    })
 
 
   });
