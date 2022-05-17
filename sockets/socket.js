@@ -31,6 +31,27 @@ io.on('connection', client => {
 
     })
 
+    client.on('add-band', (payload)=>{
+        console.log('add-band');
+        console.log(payload);
+
+        bands.addBand( new Band(payload.name));
+
+        io.emit('active-bands', bands.getBands()); 
+
+    })
+
+    client.on('delete-band', (payload)=>{
+        console.log('delete-band');
+        console.log(payload);
+
+        bands.deleteBand( payload.id);
+
+        io.emit('active-bands', bands.getBands()); 
+
+    })
+
+
 
     client.on('disconnect', () => { 
         console.log('Cliente desconectado');
