@@ -4,6 +4,7 @@ class Bands {
 
     constructor(){
         this.bands = [];
+        this.bands.push(new Band( 'Bon Jovi' ));
     }
 
     addBand ( band = new Band()){
