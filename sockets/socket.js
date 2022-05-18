@@ -3,12 +3,6 @@ const Band = require('../models/band.js');
 const Bands = require('../models/bands.js');
 const VotationPages = require('../models/votation_pages.js');
 
-// const bands = new Bands();
-// bands.addBand(new Band( 'Bon Jovi' ));
-// bands.addBand(new Band( 'El canto del loco' ));
-// bands.addBand(new Band( 'ROSALIA' ));
-
-// console.log(bands);
 const votationPages = new VotationPages();
 
 // Mensajes de sockets
@@ -18,13 +12,19 @@ io.on('connection', client => {
     console.log(client.handshake.headers);
     client.join(client.handshake.headers.sala);
    
-    
+
+    // !  io.emit                ->  Emite un mensaje a todos los clientes conectados
+    // !  client.broadcast.emit  ->  Emite a todos menos al que lo envía
+    // !  client.emit            ->  Devuelve información al cliente que se conecta
+    // !  client.on              ->  Recive una emisión de un cliente
+
+
    if (votationPages.existVotationPage(client.handshake.headers.sala)) {
        
        const votationPage = votationPages.getVotationPage(client.handshake.headers.sala);
        const  bands = votationPage.bands;
     
-        // Al conectarse un cliente al servidor.
+        // Al conectarse un cliente al servidor. Se devuelve a ese cliente:
         client.emit('active-bands', bands.getBands());
 
 
@@ -35,8 +35,7 @@ io.on('connection', client => {
             bands.voteBand( payload.id);
 
             io.to(client.handshake.headers.sala).emit('active-bands', bands.getBands()); 
-
-        })
+        });
 
         client.on('add-band', (payload)=>{
             console.log('add-band');
@@ -45,8 +44,7 @@ io.on('connection', client => {
             bands.addBand( new Band(payload.name));
 
             io.to(client.handshake.headers.sala).emit('active-bands', bands.getBands()); 
-
-        })
+        });
 
         client.on('delete-band', (payload)=>{
             console.log('delete-band');
@@ -55,36 +53,25 @@ io.on('connection', client => {
             bands.deleteBand( payload.id);
 
             io.to(client.handshake.headers.sala).emit('active-bands', bands.getBands()); 
-
-        })
-
-
-
-        client.on('disconnect', () => { 
-            console.log('Cliente desconectado');
         });
 
         client.on('mensaje', (payload)=>{
             console.log('mensaje!!');
             console.log(payload);
-
-            // Emite un mensaje a todos los clientes conectados
+            
             io.to(client.handshake.headers.sala).emit('mensaje', {admin: 'ADMIN mensaje'}); 
-
-        })
-
-        client.on('emitir-mensaje', (payload)=>{
-            console.log('nuevo-mensaje!!');
-            console.log(payload);
-
-
-        // io.emit('nuevo-mensaje', 'nuevo mensaje emitido desde el back');  // !Emite un mensaje a todos los clientes conectados
-            client.broadcast.emit('emitir-mensaje','emite a todos menos al cliente que lo crea: ' + payload);        //! Emite un mensaje a todos los clientes conectados menos al que lo creó
-        })
+        });
+        
+        client.on('disconnect', () => { 
+            console.log('Cliente desconectado');
+        });
+      
 
     } else {
         // TODO Comproar si existe la sala. sino mandar un evento al front para comunicarlo al usuario
         console.log('La sala no existe');
+        client.emit('exist-room', { 'exist-room': false });
+      
     }
 
   });

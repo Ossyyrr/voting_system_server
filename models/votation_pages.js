@@ -8,6 +8,10 @@ class VotationPages {
             {
                 'salaId':'1234',
                 'bands': new Bands(),
+            },
+            {
+                'salaId':'aaaa',
+                'bands': new Bands(),
             }
         ];
     }
