@@ -1,5 +1,6 @@
 const Band = require("./band");
 const Bands = require("./bands");
+const { v4:uuidV4 } = require('uuid');
 
 class VotationPages {
 
@@ -7,23 +8,31 @@ class VotationPages {
         this.votationPages = [
             {
                 'salaId':'1234',
+                'title': '1234',
                 'bands': new Bands(),
             },
             {
                 'salaId':'aaaa',
+                'title': 'aaaa',
                 'bands': new Bands(),
             }
         ];
     }
 
-   addVotationPage ( bands = new Bands(), salaId){
+   addVotationPage (title ){
+        console.log('add votation page **');
+
+        const newVotationPage= {
+            'salaId': uuidV4(),
+            'title': title,
+            'bands':  new Bands(),
+        };
        this.votationPages = [
            ...this.votationPages,
-            {
-                'salaId': salaId,
-                'bands': bands,
-            }
-       ]
+           newVotationPage,
+       ];
+
+       return newVotationPage;
    }
 
 
@@ -39,24 +48,7 @@ class VotationPages {
         return this.votationPages.find(bands => bands.salaId === salaId);
     }
 
-    // deleteBand(id=''){
-    //  this.bands=   this.bands.filter(band =>  band.id!==id);
-    //  return this.bands;
-    // }
-
-    // voteBand (id=''){
-    //     this.bands = this.bands.map( band => {
-    //         if(band.id === id){
-    //             band.votes++;
-    //             return band;
-    //         } 
-    //         else {
-    //             return band;
-    //         }
-
-    //     } );
-    // }
-
+   
 }
 
 module.exports = VotationPages;

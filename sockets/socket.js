@@ -24,7 +24,7 @@ io.on('connection', client => {
        const  bands = votationPage.bands;
     
         // Al conectarse un cliente al servidor. Se devuelve a ese cliente:
-         client.emit('active-bands', bands.getBands());
+        client.emit('active-bands', bands.getBands());
 
         client.on('vote-band', (payload)=>{
             console.log('vote band');
@@ -53,20 +53,9 @@ io.on('connection', client => {
             io.to(client.handshake.headers.sala).emit('active-bands', bands.getBands()); 
         });
 
-        client.on('connect', (payload)=>{
-         
-         print('CONNECT ********');
-            // console.log('mensaje!!');
-            // console.log(payload);
-            //  votationPage = votationPages.getVotationPage(client.handshake.headers.sala);
-            //   bands = votationPage.bands;
-            // io.to(client.handshake.headers.sala).emit('active-bands', bands.getBands());
-            
-           // io.to(client.handshake.headers.sala).emit('mensaje', {admin: 'ADMIN mensaje'}); 
-        });
+  
         
         client.on('disconnect', () => { 
-          
             console.log('Cliente desconectado Server');
         });
       
@@ -75,6 +64,17 @@ io.on('connection', client => {
         // TODO Comproar si existe la sala. sino mandar un evento al front para comunicarlo al usuario
         console.log('La sala no existe');
         client.emit('active-bands', { 'exist-room': false });
+
+        client.on('create-room', (payload)=>{
+            console.log('create-room');
+            console.log(payload);
+           
+           const newVotationPage= votationPages.addVotationPage(payload.title);
+           io.to(client.handshake.headers.sala).emit('new-votation-page', {'votationPage' : newVotationPage }); 
+
+        });
+
+
     }
 
   });
