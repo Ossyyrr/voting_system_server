@@ -9,7 +9,7 @@ const votationPages = new VotationPages();
 // Client es el cliente que consulta al servidor. io es la llegada y retorno de salida del servidor
 io.on('connection', client => {
     console.log('Cliente conectado');
-    console.log(client.handshake.headers);
+    console.log('SALA:' ,client.handshake.headers.sala);
     client.join(client.handshake.headers.sala);
    
 
@@ -20,13 +20,11 @@ io.on('connection', client => {
 
 
    if (votationPages.existVotationPage(client.handshake.headers.sala)) {
-       
        const votationPage = votationPages.getVotationPage(client.handshake.headers.sala);
        const  bands = votationPage.bands;
     
         // Al conectarse un cliente al servidor. Se devuelve a ese cliente:
-        client.emit('active-bands', bands.getBands());
-
+         client.emit('active-bands', bands.getBands());
 
         client.on('vote-band', (payload)=>{
             console.log('vote band');
@@ -55,23 +53,28 @@ io.on('connection', client => {
             io.to(client.handshake.headers.sala).emit('active-bands', bands.getBands()); 
         });
 
-        client.on('mensaje', (payload)=>{
-            console.log('mensaje!!');
-            console.log(payload);
+        client.on('connect', (payload)=>{
+         
+         print('CONNECT ********');
+            // console.log('mensaje!!');
+            // console.log(payload);
+            //  votationPage = votationPages.getVotationPage(client.handshake.headers.sala);
+            //   bands = votationPage.bands;
+            // io.to(client.handshake.headers.sala).emit('active-bands', bands.getBands());
             
-            io.to(client.handshake.headers.sala).emit('mensaje', {admin: 'ADMIN mensaje'}); 
+           // io.to(client.handshake.headers.sala).emit('mensaje', {admin: 'ADMIN mensaje'}); 
         });
         
         client.on('disconnect', () => { 
-            console.log('Cliente desconectado');
+          
+            console.log('Cliente desconectado Server');
         });
       
 
     } else {
         // TODO Comproar si existe la sala. sino mandar un evento al front para comunicarlo al usuario
         console.log('La sala no existe');
-        client.emit('exist-room', { 'exist-room': false });
-      
+        client.emit('active-bands', { 'exist-room': false });
     }
 
   });
