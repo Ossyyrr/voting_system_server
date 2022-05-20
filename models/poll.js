@@ -2,8 +2,8 @@ const { v4:uuidV4 } = require('uuid');
 const Option = require("./option");
 
 class Poll{
-    constructor(id = uuidV4(), title = 'no-name', creatorId='x', isEditable=false, endDate='no-endDate',isMultipleChoice=false,  isPrivateVote=false){
-        this.id = id;
+    constructor( title, creatorId, isEditable=false, endDate='no-endDate',isMultipleChoice=false,  isPrivateVote=false){
+        this.id = uuidV4();
         this.title = title;
         this.options =  [
             new Option( 'Bon Jovi' ),

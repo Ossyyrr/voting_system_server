@@ -20,20 +20,16 @@ class Polls {
     return this.polls;
     }
 
-   addPoll (title ){
+   addPoll (title, creatorId){
         console.log('add votation page **');
 
-        const newPoll= {
-            'pollId': uuidV4(),
-            'title': title,
-            'options':  new Options(),
-        };
-       this.polls = [
-           ...this.polls,
-           newPoll,
-       ];
+        const newPoll = new Poll(title,creatorId);
+        this.polls = [
+            ...this.polls,
+            newPoll,
+        ];
 
-       return newPoll;
+        return newPoll;
    }
 
 
