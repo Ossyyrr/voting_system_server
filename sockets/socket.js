@@ -1,16 +1,19 @@
 const { io } = require('../index.js');
-const Band = require('../models/band.js');
-const Bands = require('../models/bands.js');
-const VotationPages = require('../models/votation_pages.js');
+const Option = require('../models/option.js');
+const Options = require('../models/options.js');
+const Polls = require('../models/polls.js');
 
-const votationPages = new VotationPages();
+const polls = new Polls();
 
 // Mensajes de sockets
 // Client es el cliente que consulta al servidor. io es la llegada y retorno de salida del servidor
 io.on('connection', client => {
+
     console.log('Cliente conectado');
-    console.log('SALA:' ,client.handshake.headers.sala);
-    client.join(client.handshake.headers.sala);
+
+
+    //  console.log('SALA:' ,client.handshake.headers.sala);
+    //  client.join(client.handshake.headers.sala);
    
 
     // !  io.emit                ->  Emite un mensaje a todos los clientes conectados
@@ -19,62 +22,59 @@ io.on('connection', client => {
     // !  client.on              ->  Recive una emisión de un cliente
 
 
-   if (votationPages.existVotationPage(client.handshake.headers.sala)) {
-       const votationPage = votationPages.getVotationPage(client.handshake.headers.sala);
-       const  bands = votationPage.bands;
+//    if (polls.existVotationPage(client.handshake.headers.sala)) {
+//        const votationPage = polls.getVotationPage(client.handshake.headers.sala);
+//        const  options = votationPage.options;
     
-        // Al conectarse un cliente al servidor. Se devuelve a ese cliente:
-        client.emit('active-bands', bands.getBands());
+//         // Al conectarse un cliente al servidor. Se devuelve a ese cliente:
+//         client.emit('active-options', options.getOptions());
 
-        client.on('vote-band', (payload)=>{
-            console.log('vote band');
-            console.log(payload);
+//         client.on('vote-option', (payload)=>{
+//             console.log('vote option');
+//             console.log(payload);
 
-            bands.voteBand( payload.id);
+//             options.voteOption( payload.id);
 
-            io.to(client.handshake.headers.sala).emit('active-bands', bands.getBands()); 
-        });
+//             io.to(client.handshake.headers.sala).emit('active-options', options.getOptions()); 
+//         });
 
-        client.on('add-band', (payload)=>{
-            console.log('add-band');
-            console.log(payload);
+//         client.on('add-option', (payload)=>{
+//             console.log('add-option');
+//             console.log(payload);
 
-            bands.addBand( new Band(payload.name));
+//             options.addOption( new Option(payload.name));
 
-            io.to(client.handshake.headers.sala).emit('active-bands', bands.getBands()); 
-        });
+//             io.to(client.handshake.headers.sala).emit('active-options', options.getOptions()); 
+//         });
 
-        client.on('delete-band', (payload)=>{
-            console.log('delete-band');
-            console.log(payload);
+//         client.on('delete-option', (payload)=>{
+//             console.log('delete-option');
+//             console.log(payload);
 
-            bands.deleteBand( payload.id);
+//             options.deleteOption( payload.id);
 
-            io.to(client.handshake.headers.sala).emit('active-bands', bands.getBands()); 
-        });
+//             io.to(client.handshake.headers.sala).emit('active-options', options.getOptions()); 
+//         });
 
   
         
-        client.on('disconnect', () => { 
-            console.log('Cliente desconectado Server');
-        });
+//         client.on('disconnect', () => { 
+//             console.log('Cliente desconectado Server');
+//         });
       
 
-    } else {
-        // TODO Comproar si existe la sala. sino mandar un evento al front para comunicarlo al usuario
-        console.log('La sala no existe');
-        client.emit('active-bands', { 'exist-room': false });
+//     } else {
+//         // TODO Comproar si existe la sala. sino mandar un evento al front para comunicarlo al usuario
+//         console.log('La sala no existe');
+//         client.emit('active-options', { 'exist-room': false });
 
-        client.on('create-room', (payload)=>{
-            console.log('create-room');
-            console.log(payload);
+//         client.on('create-room', (payload)=>{
+//             console.log('create-room');
+//             console.log(payload);
            
-           const newVotationPage= votationPages.addVotationPage(payload.title);
-           io.to(client.handshake.headers.sala).emit('new-votation-page', {'votationPage' : newVotationPage }); 
-
-        });
-
-
-    }
+//            const newVotationPage= polls.addVotationPage(payload.title);
+//            io.to(client.handshake.headers.sala).emit('new-votation-page', {'votationPage' : newVotationPage }); 
+//         });
+//     }
 
   });
