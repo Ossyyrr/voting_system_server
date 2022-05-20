@@ -19,10 +19,12 @@ class Poll{
 
 
     addOption ( option = new Option()){
+        console.log('Add option');
         this.options.push(option);
     }
 
     getOptions(){
+        console.log('get options');
         return this.options;
     }
 
@@ -31,7 +33,11 @@ class Poll{
      return this.options;
     }
 
-    voteOption (id=''){
+    voteOption (id){
+
+        console.log('Vote option');
+        console.log(id);
+
         this.options = this.options.map( option => {
             if(option.id === id){
                 option.votes++;

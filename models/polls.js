@@ -15,9 +15,8 @@ class Polls {
 
     getPolls (){
     // TODO get polls from DB
-
-    console.log('this.polls');
-    console.log(this.polls);
+    // console.log('this.polls');
+    // console.log(this.polls);
     return this.polls;
     }
 
@@ -25,7 +24,7 @@ class Polls {
         console.log('add votation page **');
 
         const newPoll= {
-            'salaId': uuidV4(),
+            'pollId': uuidV4(),
             'title': title,
             'options':  new Options(),
         };
@@ -38,16 +37,15 @@ class Polls {
    }
 
 
-    existPoll (salaId){
-       const sala= this.polls.find(options => options.salaId === salaId);
-       console.log('EXISTS VOTATION PAGE ****** SALA:', salaId, (sala !== undefined));
+    existPoll (pollId){
+       const sala= this.polls.find(options => options.pollId === pollId);
+       console.log('EXISTS VOTATION PAGE ****** SALA:', pollId, (sala !== undefined));
        return sala !== undefined;
     }
 
-    getPoll (salaId){
-        console.log('GET VOTATION PAGE ****** SALA:', salaId);
-        console.log(this.polls.find(options => options.salaId === salaId));
-        return this.polls.find(options => options.salaId === salaId);
+    getPoll (pollId){
+        console.log('getPoll - PollId: ', pollId);        
+        return this.polls.find(poll => poll.id === pollId);
     }
 
    

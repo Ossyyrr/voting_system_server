@@ -21,6 +21,32 @@ io.on('connection', client => {
     client.emit('polls', polls.getPolls());
 
 
+
+    client.on('add-option', (payload)=>{
+      const poll= polls.getPoll(payload.pollId);
+      poll.addOption(new Option(payload.optionName))
+      io.emit('active-options', poll.getOptions()); 
+      // TODO
+      // io.to(client.handshake.headers.sala).emit('active-options', poll.getOptions()); 
+    });
+
+
+    client.on('vote-option', (payload)=>{
+      console.log('vote option');
+      console.log(payload);
+      const poll= polls.getPoll(payload.pollId);
+      console.log('POLL: **************');
+      console.log(poll);
+
+      poll.voteOption( payload.optionId);
+
+      io.emit('active-options', poll.getOptions()); 
+      // TODO
+      // io.to(client.handshake.headers.sala).emit('active-options', poll.getOptions()); 
+    });
+      
+
+
 //    if (polls.existPoll(client.handshake.headers.sala)) {
 //        const votationPage = polls.getPoll(client.handshake.headers.sala);
 //        const  options = votationPage.options;
