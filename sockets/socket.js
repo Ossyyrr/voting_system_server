@@ -1,6 +1,5 @@
 const { io } = require('../index.js');
 const Option = require('../models/option.js');
-const Options = require('../models/options.js');
 const Polls = require('../models/polls.js');
 
 const polls = new Polls();
@@ -10,10 +9,7 @@ const polls = new Polls();
 io.on('connection', client => {
 
     console.log('Cliente conectado');
-
-
-    //  console.log('SALA:' ,client.handshake.headers.sala);
-    //  client.join(client.handshake.headers.sala);
+    console.log('DATOS:' ,client.handshake.headers.datos);
    
 
     // !  io.emit                ->  Emite un mensaje a todos los clientes conectados
@@ -21,9 +17,12 @@ io.on('connection', client => {
     // !  client.emit            ->  Devuelve información al cliente que se conecta
     // !  client.on              ->  Recive una emisión de un cliente
 
+    // Al conectarse un cliente al servidor. Se devuelve a ese cliente:
+    client.emit('polls', polls.getPolls());
 
-//    if (polls.existVotationPage(client.handshake.headers.sala)) {
-//        const votationPage = polls.getVotationPage(client.handshake.headers.sala);
+
+//    if (polls.existPoll(client.handshake.headers.sala)) {
+//        const votationPage = polls.getPoll(client.handshake.headers.sala);
 //        const  options = votationPage.options;
     
 //         // Al conectarse un cliente al servidor. Se devuelve a ese cliente:
@@ -72,8 +71,8 @@ io.on('connection', client => {
 //             console.log('create-room');
 //             console.log(payload);
            
-//            const newVotationPage= polls.addVotationPage(payload.title);
-//            io.to(client.handshake.headers.sala).emit('new-votation-page', {'votationPage' : newVotationPage }); 
+//            const newPoll= polls.addPoll(payload.title);
+//            io.to(client.handshake.headers.sala).emit('new-votation-page', {'votationPage' : newPoll }); 
 //         });
 //     }
 
