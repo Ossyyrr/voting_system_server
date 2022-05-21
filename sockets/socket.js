@@ -29,6 +29,8 @@ io.on('connection', client => {
     client.on('join-poll', (payload)=>{
       console.log('join - poll', payload);
       client.join(payload.pollId);
+      const poll= polls.getPoll(payload.pollId);
+      io.to(poll.id).emit('active-options', poll.getOptions()); 
     });
 
     client.on('leave-poll', (payload)=>{
