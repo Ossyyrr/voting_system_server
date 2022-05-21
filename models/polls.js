@@ -1,13 +1,14 @@
 const Poll = require("./poll");
-const Option = require("./option");
-const { v4:uuidV4 } = require('uuid');
 
 class Polls {
 
     constructor(){
         this.polls = [
-            new Poll('1234', 'titulo: 1234'),
-            new Poll('aaaa' , 'titulo: aaaa'),
+            new Poll(  {title:'1234',creatorId: 'S2B2.211203.006' ,id:'1234'} ),
+            new Poll(  {title:'aaa',creatorId: 'S2B2.211203.0062' ,id:'aaa'} ),
+            new Poll(  {title:'bbb',creatorId: 'S2B2.211203.0062' ,id:'bbb'} ),
+            new Poll(  {title:'ccc',creatorId: 'S2B2.211203.0062' ,id:'ccc'} ),
+            new Poll(  {title:'ddd',creatorId: 'S2B2.211203.006' ,id:'ddd'} ),
         ];
         // console.log('Polls:', this.polls)
     }
@@ -21,13 +22,13 @@ class Polls {
     }
 
    addPoll (title, creatorId){
-        console.log('add votation page **');
-
-        const newPoll = new Poll(title,creatorId);
-        this.polls = [
-            ...this.polls,
-            newPoll,
+       
+       const newPoll = new Poll(title,creatorId);
+       this.polls = [
+           ...this.polls,
+           newPoll,
         ];
+        console.log('add poll: ', newPoll);
 
         return newPoll;
    }
