@@ -9,8 +9,12 @@ const polls = new Polls();
 io.on('connection', client => {
 
     console.log('Cliente conectado');
-    console.log('DATOS:' ,client.handshake.headers.datos);
+   // console.log('UserId:' ,client.handshake.headers.userId);
    
+
+    // USO client.id para las salas
+    console.log('clientId ****: ', client.id);
+
 
     // !  io.emit                ->  Emite un mensaje a todos los clientes conectados
     // !  client.broadcast.emit  ->  Emite a todos menos al que lo envía
@@ -21,9 +25,20 @@ io.on('connection', client => {
     client.emit('polls', polls.getPolls());
 
 
+
+    client.on('join-poll', (payload)=>{
+      console.log('join - poll', payload);
+      client.join(payload.pollId);
+    });
+
+    client.on('leave-poll', (payload)=>{
+      console.log('leave - poll', payload);
+      client.leave(payload.pollId);
+    });
+
     client.on('add-poll', (payload)=>{
-      const poll = polls.addPoll(payload.pollName,payload.creatorId);
-      io.emit('polls', polls.getPolls());
+      const poll= polls.addPoll(payload.pollName,payload.creatorId);
+      io.to(poll.id).emit('polls', polls.getPolls());
       // io.to(client.handshake.headers.sala).emit('polls', polls.getPolls());
     });
 
@@ -31,16 +46,17 @@ io.on('connection', client => {
     client.on('add-option', (payload)=>{
       const poll= polls.getPoll(payload.pollId);
       poll.addOption(new Option(payload.optionName))
-      io.emit('active-options', poll.getOptions()); 
+     // io.emit('active-options', poll.getOptions()); 
       // TODO
-      // io.to(client.handshake.headers.sala).emit('active-options', poll.getOptions()); 
+      console.log('pollId:', poll.id);
+       io.to(poll.id).emit('active-options', poll.getOptions()); 
     });
 
 
     client.on('vote-option', (payload)=>{
       const poll= polls.getPoll(payload.pollId);
       poll.voteOption( payload.optionId);
-      io.emit('active-options', poll.getOptions()); 
+      io.to(poll.id).emit('active-options', poll.getOptions()); 
       // TODO
       // io.to(client.handshake.headers.sala).emit('active-options', poll.getOptions()); 
     });

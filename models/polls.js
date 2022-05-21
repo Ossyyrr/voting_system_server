@@ -4,11 +4,11 @@ class Polls {
 
     constructor(){
         this.polls = [
-            new Poll(  {title:'1234',creatorId: 'S2B2.211203.006' ,id:'1234'} ),
-            new Poll(  {title:'aaa',creatorId: 'S2B2.211203.0062' ,id:'aaa'} ),
-            new Poll(  {title:'bbb',creatorId: 'S2B2.211203.0062' ,id:'bbb'} ),
-            new Poll(  {title:'ccc',creatorId: 'S2B2.211203.0062' ,id:'ccc'} ),
-            new Poll(  {title:'ddd',creatorId: 'S2B2.211203.006' ,id:'ddd'} ),
+            new Poll(  {title:'1234',creatorId: '4ce2b842891fddc5' ,id:'1234'} ),
+            new Poll(  {title:'aaa',creatorId: '4ce2b842891fddc52' ,id:'aaa'} ),
+            new Poll(  {title:'bbb',creatorId: '4ce2b842891fddc52' ,id:'bbb'} ),
+            new Poll(  {title:'ccc',creatorId: '4ce2b842891fddc52' ,id:'ccc'} ),
+            new Poll(  {title:'ddd',creatorId: '4ce2b842891fddc5' ,id:'ddd'} ),
         ];
         // console.log('Polls:', this.polls)
     }
