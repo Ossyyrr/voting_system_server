@@ -40,7 +40,10 @@ io.on('connection', client => {
 
     client.on('add-poll', (payload)=>{
       const poll= polls.addPoll(payload.pollName,payload.creatorId);
-      io.to(poll.id).emit('polls', polls.getPolls());
+
+      console.log('POLL NAME: ', payload)
+
+      io.emit('polls', polls.getPolls());
       // io.to(client.handshake.headers.sala).emit('polls', polls.getPolls());
     });
 

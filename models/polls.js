@@ -23,7 +23,7 @@ class Polls {
 
    addPoll (title, creatorId){
        
-       const newPoll = new Poll(title,creatorId);
+       const newPoll = new Poll(  {title:title,creatorId: creatorId}    );
        this.polls = [
            ...this.polls,
            newPoll,
