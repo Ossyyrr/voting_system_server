@@ -6,9 +6,6 @@ class Polls {
         this.polls = [
             new Poll(  {title:'1234',creatorId: '4ce2b842891fddc5' ,id:'1234'} ),
             new Poll(  {title:'aaa',creatorId: '4ce2b842891fddc52' ,id:'aaa'} ),
-            new Poll(  {title:'bbb',creatorId: '4ce2b842891fddc52' ,id:'bbb'} ),
-            new Poll(  {title:'ccc',creatorId: '4ce2b842891fddc52' ,id:'ccc'} ),
-            new Poll(  {title:'ddd',creatorId: '4ce2b842891fddc5' ,id:'ddd'} ),
         ];
         // console.log('Polls:', this.polls)
     }
