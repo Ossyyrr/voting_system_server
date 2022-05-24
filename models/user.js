@@ -3,7 +3,7 @@ class User{
         this.id =id;
         this.name = name;
         this.avatarId = avatarId;
-        this.votedPolls = [];
+        this.votedPolls = ['aaa'];
         this.myPolls = ['1234'];
     }
 }

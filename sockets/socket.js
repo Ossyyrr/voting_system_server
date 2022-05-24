@@ -2,6 +2,8 @@ const { io } = require('../index.js');
 const Option = require('../models/option.js');
 const Polls = require('../models/polls.js');
 
+
+// TODO Traer polls de este usuario de la DB
 const polls = new Polls();
 
 // Mensajes de sockets

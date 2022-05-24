@@ -42,7 +42,6 @@ class Poll{
         this.options = this.options.map( option => {
             if(option.id === optionId){
                 if(!option.votedBy.includes(userId)){
-                    option.votes++;
                     console.log('USER ID: ', userId);
                     option.votedBy.push(userId);
                 }
@@ -50,10 +49,11 @@ class Poll{
                 if(!this.isMultipleChoice){
                     if(option.votedBy.includes(userId)){
                         option.votedBy.splice( option.votedBy.indexOf(userId), 1); 
-                        option.votes--;
                     }
                 }
             }
+            option.votes=option.votedBy.length;
+
             console.log('voteOption ********** by',option.votedBy)
             console.log('isMultipleChoice',this.isMultipleChoice);
             return option;
