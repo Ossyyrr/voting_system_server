@@ -12,6 +12,7 @@ io.on('connection', client => {
     // USO client.id para las salas
     // console.log('clientId : ', client.id);
     console.log('userId : ', client.handshake.headers.userid);
+    const userId=client.handshake.headers.userid;
 
     // !  io.emit                ->  Emite un mensaje a todos los clientes conectados
     // !  client.broadcast.emit  ->  Emite a todos menos al que lo envía
@@ -34,10 +35,7 @@ io.on('connection', client => {
     });
 
     client.on('add-poll', (payload)=>{
-      const poll= polls.addPoll(payload.pollName,payload.creatorId);
-
-      console.log('POLL NAME: ', payload)
-
+      polls.addPoll(payload.pollName,payload.creatorId);
       io.emit('polls', polls.getPolls());
       // io.to(client.handshake.headers.sala).emit('polls', polls.getPolls());
     });
@@ -52,7 +50,7 @@ io.on('connection', client => {
 
     client.on('vote-option', (payload)=>{
       const poll= polls.getPoll(payload.pollId);
-      poll.voteOption( payload.optionId);
+      poll.voteOption( payload.optionId , userId);
       io.to(poll.id).emit('active-options', poll.getOptions()); 
     });
 

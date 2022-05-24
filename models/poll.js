@@ -33,24 +33,30 @@ class Poll{
     }
 
     deleteOption(id=''){
-     this.options=   this.options.filter(option =>  option.id!==id);
+     this.options = this.options.filter(option =>  option.id!==id);
      return this.options;
     }
 
-    voteOption (id){
-
-        console.log('Vote option');
-        console.log(id);
+    voteOption (optionId,userId){
 
         this.options = this.options.map( option => {
-            if(option.id === id){
-                option.votes++;
-                return option;
-            } 
-            else {
-                return option;
+            if(option.id === optionId){
+                if(!option.votedBy.includes(userId)){
+                    option.votes++;
+                    console.log('USER ID: ', userId);
+                    option.votedBy.push(userId);
+                }
+            } else{
+                if(!this.isMultipleChoice){
+                    if(option.votedBy.includes(userId)){
+                        option.votedBy.splice( option.votedBy.indexOf(userId), 1); 
+                        option.votes--;
+                    }
+                }
             }
-
+            console.log('voteOption ********** by',option.votedBy)
+            console.log('isMultipleChoice',this.isMultipleChoice);
+            return option;
         } );
     }
 
