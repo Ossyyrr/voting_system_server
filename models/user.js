@@ -1,3 +1,6 @@
+
+
+
 class User{
     constructor({id, name='no-name', avatarId = 'no-avatar'}={}){
         this.id =id;
@@ -9,4 +12,5 @@ class User{
 }
 
 module.exports = User;
+
 
