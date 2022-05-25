@@ -1,7 +1,8 @@
 const { Router } = require('express');
-const { crearUsuario ,login } = require('../controllers/auth');
+const { crearUsuario ,login, renewToken } = require('../controllers/auth');
 const { check } = require('express-validator');
 const { validarCampos } = require('../middlewares/validate_fields');
+const { validarJWT } = require('../middlewares/validar_jwt');
 
 const router = Router();
 
@@ -24,7 +25,11 @@ check('password', 'el password es obligatorio').not().isEmpty(),
 ], 
 login )
 
-
+router.get('/renew', 
+[ //middlewares
+validarJWT
+], 
+renewToken )
 
 
 module.exports = router;

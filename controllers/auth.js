@@ -41,8 +41,6 @@ const crearUsuario = async(req, res=response)=>{
 }
 
 
-
-
 const login = async(req, res=response)=>{
     const { email, password } = req.body;
 
@@ -85,10 +83,23 @@ const login = async(req, res=response)=>{
 }
 
 
+const renewToken = async (req, res = response)=>{
+    const uid = req.uid;
+    const token = await generarJWT(uid);
+    const usuarioDB = await Users.findById(uid);
+
+        res.json({
+            ok: true,
+            usuarioDB, 
+            token,
+        });
+}
+
 
 
 
 module.exports={
     crearUsuario,
     login,
+    renewToken,
 };
