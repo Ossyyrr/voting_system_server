@@ -1,5 +1,5 @@
 const { response } = require('express');
-const Users = require('../models/UserSchema');
+const User = require('../models/UserSchema');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 
@@ -8,14 +8,14 @@ const crearUsuario = async(req, res=response)=>{
     const { email,password } = req.body;
     try {
 
-        const existeEmail = await Users.findOne({ email })
+        const existeEmail = await User.findOne({ email })
         if(existeEmail){
             return res.status(400).json({
                 ok: false,
                 msg: 'El correo ya está registrado'
             })
         }
-        const usuario = new Users(req.body);
+        const usuario = new User(req.body);
        
         // Encriptar contraseña
         const salt = bcrypt.genSaltSync();
@@ -47,16 +47,16 @@ const login = async(req, res=response)=>{
     console.log(req.body);
 
     try{
-        const usuarioDB = await Users.findOne({ email });
-
-        if(!usuarioDB){
+        const usuario = await User.findOne({ email });
+        console.log(usuario);
+        if(!usuario){
             return res.status(404).json({
                 ok: false,
-                msg: 'El email no se encuentra'
+                msg: 'El usuario no se encuentra'
             })
         }
 
-        const validPassword = bcrypt.compareSync(password, usuarioDB.password);
+        const validPassword = bcrypt.compareSync(password, usuario.password);
         if(!validPassword){
             return res.status(400).json({
                 ok: false,
@@ -65,11 +65,11 @@ const login = async(req, res=response)=>{
         }
 
         // Generar JWT
-        const token = await generarJWT(usuarioDB.id);
+        const token = await generarJWT(usuario.id);
 
          res.json({
              ok: true,
-             usuarioDB, 
+             usuario, 
              token,
          });
 
@@ -86,7 +86,7 @@ const login = async(req, res=response)=>{
 const renewToken = async (req, res = response)=>{
     const uid = req.uid;
     const token = await generarJWT(uid);
-    const usuarioDB = await Users.findById(uid);
+    const usuarioDB = await User.findById(uid);
 
         res.json({
             ok: true,

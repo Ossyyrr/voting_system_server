@@ -20,7 +20,7 @@
             console.log('se perdió la conexión con el servidor')
         })
 
-        socket.emit('mensaje', { nombre:'Patri' });
+        socket.emit('mensaje', { name:'Patri' });
 
         socket.on('mensaje', (payload)=>{
             console.log(payload);
