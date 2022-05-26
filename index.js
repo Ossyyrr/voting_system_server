@@ -28,6 +28,7 @@ app.use(express.static(puclicPath));
 
 // RUTAS
 app.use( '/api/login', require('./routes/auth') );
+app.use( '/api/poll', require('./routes/poll') );
 
 
 // process.env.PORT recoge del archivo .env (variables de entorno) la variable PORT

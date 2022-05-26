@@ -17,15 +17,17 @@ const crearUsuario = async(req, res=response)=>{
         }
         const usuario = new User(req.body);
        
+console.log('EL USUARIO CREADO', usuario);
+
         // Encriptar contraseña
         const salt = bcrypt.genSaltSync();
         usuario.password = bcrypt.hashSync( password, salt );
 
         // Guardar usuario en DB
         await usuario.save();
-
+console.log('GENERAR JWT ***');
         // Generar JWT
-        const token = await generarJWT(usuario.uid);
+        const token = await generarJWT(usuario.id);
         res.json({
             ok: true,
             usuario,
@@ -65,7 +67,7 @@ const login = async(req, res=response)=>{
         }
 
         // Generar JWT
-        const token = await generarJWT(usuario.uid);
+        const token = await generarJWT(usuario.id);
 
          res.json({
              ok: true,
