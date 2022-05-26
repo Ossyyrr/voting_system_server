@@ -20,6 +20,18 @@ const UserSchema = Schema({
         type: Boolean,
         default:false        
     },
+    avatarId:{
+        type: String,
+        default:false        
+    }, 
+    votedPolls:{
+        type: [],
+        default:false        
+    }, 
+    myPolls:{
+        type: [],
+        default:false        
+    },
 })
 
 // modifica el objeto actual de DB a un objeto sin __v y sin password.
