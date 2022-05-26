@@ -26,11 +26,9 @@ const UserSchema = Schema({
     }, 
     votedPolls:{
         type: [],
-        default:false        
     }, 
     myPolls:{
         type: [],
-        default:false        
     },
 })
 

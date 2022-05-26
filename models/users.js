@@ -34,7 +34,7 @@
 
 //     getUser (userId){
 //         console.log('getUser - UserId: ', userId);        
-//         return this.users.find(user => user.id === userId);
+//         return this.users.find(user => user.uid === userId);
 //     }
 
    
