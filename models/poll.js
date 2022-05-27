@@ -1,26 +1,8 @@
-const { v4:uuidV4 } = require('uuid');
-const Option = require('../models/option');
+const Option = require('../database/models/optionSchema');
 const User = require('../database/models/UserSchema');
 
 class Poll{
-    constructor( {title, creatorId, isEditable=false, endDate='no-endDate',isMultipleChoice=false, isPrivateVote=false}={}){
-        this.id; // Se agrega al crear el objeto en DB
-        this.title = title;
-        this.options =  [
-            new Option( {title:'Bon Jovi'} ),
-            new Option( {title:'Rosalia'} ),
-        ];
-        this.creatorId = creatorId;
-        this.activeUsers = [
-            new User({id:'S2B2.211203.006',name:'Patri'}),
-            new User({id:'S2B2.211203.0062', name:'Alicia'}),
-        ];
-        this.isEditable = isEditable;
-        this.endDate = endDate;
-        this.isMultipleChoice = isMultipleChoice;
-        this.isPrivateVote = isPrivateVote;
-    }
-
+    constructor(){}
 
     addOption ( option = new Option()){
         console.log('Add option');

@@ -1,13 +1,9 @@
 const { Schema, model } = require('mongoose');
+const Poll = require('../../models/poll');
 const OptionSchema = require('./optionSchema');
 // Esquema DB
 
-
-
-
 const PollSchema = Schema({
-    
-     
     title:{
         type: String,
         required: true
@@ -55,6 +51,12 @@ PollSchema.method('toJSON', function(){
     return object;
 });
 
+PollSchema.loadClass(Poll); 
+
+// console.log('*******-********');   
+// console.log(PollSchema.methods);    
+// console.log(PollSchema.statics);    
+// console.log(PollSchema.virtuals);   
 
 module.exports = model('Polls', PollSchema) // Nombre de la tabla: Polls
 

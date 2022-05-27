@@ -1,6 +1,7 @@
 const { io } = require('../index.js');
 const Polls = require('../models/polls.js');
-const Option = require('../models/option');
+const Option = require('../database/models/optionSchema');
+
 
 
 // TODO Traer polls de este usuario de la DB
@@ -46,7 +47,7 @@ io.on('connection', client => {
       console.log('add option -------');
 
       const poll= polls.getPoll(payload.pollId);
-      poll.addOption(new Option(payload.optionName))
+      poll.addOption(new Option({title:payload.optionName}))
       // TODO users
       console.log('pollId:', poll.id);
       io.to(poll.id).emit('active-options', poll.getOptions()); 

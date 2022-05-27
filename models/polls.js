@@ -1,12 +1,12 @@
 const PollSchema = require("../database/models/pollSchema");
-const Poll = require("./poll");
+const Poll = require("../database/models/pollSchema");
 
 class Polls {
 
     constructor(){
         this.polls = [
-            new Poll(  {title:'1234',creatorId: '4ce2b842891fddc5' ,id:'1234'} ),
-            new Poll(  {title:'aaa',creatorId: '4ce2b842891fddc52' ,id:'aaa'} ),
+          //  new Poll(  {title:'1234',creatorId: '4ce2b842891fddc5' ,id:'1234'} ),
+          //  new Poll(  {title:'aaa',creatorId: '4ce2b842891fddc52' ,id:'aaa'} ),
         ];
         // console.log('Polls:', this.polls)
     }
@@ -30,16 +30,13 @@ class Polls {
 
 
         // GUARDAR EN DB
-       // const pollSchema = new PollSchema({_id:newPoll.id,...newPoll});
+        // const pollSchema = new PollSchema({_id:newPoll.id,...newPoll});
         
-       const pollSchema = new PollSchema(newPoll);
-       newPoll.id=pollSchema.id;
-       console.log('NEW POLL DB *********');
+
+        console.log('NEW POLL DB *********');
         console.log('newPoll.id');
         console.log(newPoll.id);
-        console.log('pollSchema.id');
-        console.log(pollSchema.id);
-        pollSchema.save();
+        newPoll.save();
 
 
         return newPoll;
