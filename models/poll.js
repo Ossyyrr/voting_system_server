@@ -1,14 +1,14 @@
 const { v4:uuidV4 } = require('uuid');
-const Option = require("./option");
-const User = require('./user');
+const Option = require('../database/models/optionSchema');
+const User = require('../database/models/UserSchema');
 
 class Poll{
     constructor( {title, creatorId,id=uuidV4(), isEditable=false, endDate='no-endDate',isMultipleChoice=false,  isPrivateVote=false}={}){
         this.id = id;
         this.title = title;
         this.options =  [
-            new Option( 'Bon Jovi' ),
-            new Option( 'Rosalia' ),
+            new Option( {title:'Bon Jovi'} ),
+            new Option( {title:'Rosalia'} ),
         ];
         this.creatorId = creatorId;
         this.activeUsers = [
@@ -38,7 +38,7 @@ class Poll{
     }
 
     voteOption (optionId,userId){
-
+console.log(optionId,userId);
         this.options = this.options.map( option => {
             if(option.id === optionId){
                 if(!option.votedBy.includes(userId)){
@@ -54,8 +54,8 @@ class Poll{
             }
             option.votes=option.votedBy.length;
 
-            console.log('voteOption ********** by',option.votedBy)
-            console.log('isMultipleChoice',this.isMultipleChoice);
+          //  console.log('voteOption ********** by',option.votedBy)
+          //  console.log('isMultipleChoice',this.isMultipleChoice);
             return option;
         } );
     }
