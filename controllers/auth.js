@@ -1,10 +1,10 @@
 const { response } = require('express');
-const User = require('../database/models/UserSchema');
+const User = require('../models/userSchema');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
 
 
-const crearUsuario = async(req, res=response)=>{
+const createUser = async(req, res=response)=>{
     const { email,password } = req.body;
     try {
 
@@ -101,7 +101,7 @@ const renewToken = async (req, res = response)=>{
 
 
 module.exports={
-    crearUsuario,
+    createUser,
     login,
     renewToken,
 };

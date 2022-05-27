@@ -1,5 +1,4 @@
-const PollSchema = require("../database/models/pollSchema");
-const Poll = require("../database/models/pollSchema");
+const Poll = require("../models/pollSchema");
 
 class Polls {
 

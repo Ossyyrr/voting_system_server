@@ -1,5 +1,4 @@
-const Option = require('../database/models/optionSchema');
-const User = require('../database/models/UserSchema');
+const Option = require('../models/optionSchema');
 
 class Poll{
     constructor(){}

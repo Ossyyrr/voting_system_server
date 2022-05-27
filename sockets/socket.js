@@ -1,6 +1,6 @@
 const { io } = require('../index.js');
-const Polls = require('../models/polls.js');
-const Option = require('../database/models/optionSchema');
+const Polls = require('../class/polls.js');
+const Option = require('../models/optionSchema');
 
 
 

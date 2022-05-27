@@ -1,5 +1,5 @@
 const { Schema, model } = require('mongoose');
-const Poll = require('../../models/poll');
+const Poll = require('../class/poll');
 const OptionSchema = require('./optionSchema');
 // Esquema DB
 

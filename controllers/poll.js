@@ -1,5 +1,5 @@
 const { response } = require('express');
-const User = require('../database/models/UserSchema');
+const User = require('../models/userSchema');
 const bcrypt = require('bcryptjs');
 
 const getPolls = async(req, res = response) => {
