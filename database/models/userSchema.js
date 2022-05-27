@@ -1,7 +1,6 @@
 
 const { Schema, model } = require('mongoose');
 // Esquema DB
-// TODO Añadir el resto de campos
 const UserSchema = Schema({
     name:{
         type: String,

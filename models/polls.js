@@ -1,3 +1,4 @@
+const PollSchema = require("../database/models/pollSchema");
 const Poll = require("./poll");
 
 class Polls {
@@ -26,6 +27,20 @@ class Polls {
            newPoll,
         ];
         console.log('add poll: ', newPoll);
+
+
+        // GUARDAR EN DB
+       // const pollSchema = new PollSchema({_id:newPoll.id,...newPoll});
+        
+       const pollSchema = new PollSchema(newPoll);
+       newPoll.id=pollSchema.id;
+       console.log('NEW POLL DB *********');
+        console.log('newPoll.id');
+        console.log(newPoll.id);
+        console.log('pollSchema.id');
+        console.log(pollSchema.id);
+        pollSchema.save();
+
 
         return newPoll;
    }

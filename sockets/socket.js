@@ -1,7 +1,6 @@
 const { io } = require('../index.js');
-//const Option = require('../models/option.js');
 const Polls = require('../models/polls.js');
-const Option = require('../database/models/optionSchema');
+const Option = require('../models/option');
 
 
 // TODO Traer polls de este usuario de la DB
@@ -28,7 +27,7 @@ io.on('connection', client => {
     client.on('join-poll', (payload)=>{
       console.log('join - poll', payload);
       client.join(payload.pollId);
-      const poll= polls.getPoll(payload.pollId);
+      const  poll= polls.getPoll(payload.pollId);
       io.to(poll.id).emit('active-options', poll.getOptions()); 
     });
 
@@ -45,9 +44,6 @@ io.on('connection', client => {
 
     client.on('add-option', (payload)=>{
       console.log('add option -------');
-
-
-
 
       const poll= polls.getPoll(payload.pollId);
       poll.addOption(new Option(payload.optionName))

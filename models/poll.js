@@ -1,10 +1,10 @@
 const { v4:uuidV4 } = require('uuid');
-const Option = require('../database/models/optionSchema');
+const Option = require('../models/option');
 const User = require('../database/models/UserSchema');
 
 class Poll{
-    constructor( {title, creatorId,id=uuidV4(), isEditable=false, endDate='no-endDate',isMultipleChoice=false,  isPrivateVote=false}={}){
-        this.id = id;
+    constructor( {title, creatorId, isEditable=false, endDate='no-endDate',isMultipleChoice=false, isPrivateVote=false}={}){
+        this.id; // Se agrega al crear el objeto en DB
         this.title = title;
         this.options =  [
             new Option( {title:'Bon Jovi'} ),
@@ -38,7 +38,6 @@ class Poll{
     }
 
     voteOption (optionId,userId){
-console.log(optionId,userId);
         this.options = this.options.map( option => {
             if(option.id === optionId){
                 if(!option.votedBy.includes(userId)){
