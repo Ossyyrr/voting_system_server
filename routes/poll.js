@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const {getPolls} = require('../controllers/poll');
+const {getPollsFromDB} = require('../controllers/poll');
 const router = Router();
 
 // Ruta base:  '/api/poll'
@@ -12,7 +12,7 @@ const router = Router();
  //check('password', 'el password es obligatorio').not().isEmpty(),
  //validarCampos
  ], 
- getPolls );
+ getPollsFromDB );
 
 
 module.exports = router;

@@ -2,7 +2,7 @@ const { response } = require('express');
 const User = require('../models/userSchema');
 const bcrypt = require('bcryptjs');
 
-const getPolls = async(req, res = response) => {
+const getPollsFromDB = async(req, res = response) => {
     console.log('GET POLLs ******');
     console.log(req.body);
     res.json({
@@ -47,5 +47,5 @@ const getPolls = async(req, res = response) => {
 }
 
 module.exports={
-    getPolls,
+    getPollsFromDB,
 };

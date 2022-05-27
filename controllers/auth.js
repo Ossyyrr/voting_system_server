@@ -17,7 +17,7 @@ const createUser = async(req, res=response)=>{
         }
         const usuario = new User(req.body);
        
-console.log('EL USUARIO CREADO', usuario);
+        console.log('EL USUARIO CREADO: s', usuario);
 
         // Encriptar contraseña
         const salt = bcrypt.genSaltSync();
@@ -25,7 +25,7 @@ console.log('EL USUARIO CREADO', usuario);
 
         // Guardar usuario en DB
         await usuario.save();
-console.log('GENERAR JWT ***');
+        console.log('GENERAR JWT ***');
         // Generar JWT
         const token = await generarJWT(usuario.id);
         res.json({
