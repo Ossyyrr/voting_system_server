@@ -2,11 +2,13 @@ const Poll = require("../models/pollSchema");
 
 class Polls {
 
-    constructor(){
-        this.polls = [
-          //  new Poll(  {title:'1234',creatorId: '4ce2b842891fddc5' ,id:'1234'} ),
-          //  new Poll(  {title:'aaa',creatorId: '4ce2b842891fddc52' ,id:'aaa'} ),
-        ];
+    constructor(initialPolls){
+        this.polls = initialPolls;
+
+        //   [
+        //     new Poll(  {title:'1234',creatorId: '4ce2b842891fddc5' ,id:'1234'} ),
+        //     new Poll(  {title:'aaa',creatorId: '4ce2b842891fddc52' ,id:'aaa'} ),
+        //   ];
         // console.log('Polls:', this.polls)
     }
 

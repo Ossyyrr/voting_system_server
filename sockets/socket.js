@@ -1,11 +1,19 @@
+
+var initSokets= async()=>{
+
+
 const { io } = require('../index.js');
 const Polls = require('../class/polls.js');
 const Option = require('../models/optionSchema');
+const initialPolls = await require('../controllers/poll').getPollsFromDB();
 
+
+console.log('initialPolls');
+console.log(initialPolls);
 
 
 // TODO Traer polls de este usuario de la DB
-const polls = new Polls();
+const polls = new Polls(initialPolls);
 
 // Mensajes de sockets
 // Client es el cliente que consulta al servidor. io es la llegada y retorno de salida del servidor
@@ -60,3 +68,9 @@ io.on('connection', client => {
     });
 
   });
+}
+
+
+module.exports={
+  initSokets
+}
