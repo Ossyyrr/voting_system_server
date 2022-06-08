@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const Poll = require('../class/poll');
-const OptionSchema = require('./optionSchema');
+const Options = require('../class/option');
 // Esquema DB
 
 const PollSchema = Schema({
@@ -8,10 +8,31 @@ const PollSchema = Schema({
         type: String,
         required: true
     },
-    options:{
-        type: [],
-        required: true,
-    },
+   options:{
+       type: [
+        // {
+        //     id:{
+        //         type: String,
+        //         required: true
+        //     },
+        //     title:{
+        //         type: String,
+        //         required: true
+        //     },
+        //     votes:{
+        //         type: Number,
+        //         required: true,
+        //         default:0,
+        //     },
+        //     votedBy:{
+        //         type: [],
+        //         default:[],
+        //     },
+        // }
+        
+       ],
+       required: true,
+   },
     creatorId:{
         type: String,
         required: true,

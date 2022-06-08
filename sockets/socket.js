@@ -4,7 +4,7 @@ var initSokets= async()=>{
 
 const { io } = require('../index.js');
 const Polls = require('../class/polls.js');
-const Option = require('../models/optionSchema');
+const Option = require('../class/option.js');
 const initialPolls = await require('../controllers/poll').getPollsFromDB();
 
 

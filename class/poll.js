@@ -1,12 +1,11 @@
-const OptionSchema = require('../models/optionSchema');
+const Option = require('../class/option');
 
 class Poll{
     constructor(){}
 
-    addOption ( option = new OptionSchema()){
+    addOption ( option = new Option()){
         console.log('Add option');
         this.options.push(option);
-       option.save();
       this.save();
     }
 
