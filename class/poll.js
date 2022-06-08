@@ -1,11 +1,13 @@
-const Option = require('../models/optionSchema');
+const OptionSchema = require('../models/optionSchema');
 
 class Poll{
     constructor(){}
 
-    addOption ( option = new Option()){
+    addOption ( option = new OptionSchema()){
         console.log('Add option');
         this.options.push(option);
+       option.save();
+      this.save();
     }
 
     getOptions(){
@@ -15,6 +17,7 @@ class Poll{
 
     deleteOption(id=''){
      this.options = this.options.filter(option =>  option.id!==id);
+    // this.save();
      return this.options;
     }
 
@@ -33,6 +36,7 @@ class Poll{
                 }
             }
             option.votes=option.votedBy.length;
+          //  this.save();
 
           //  console.log('voteOption ********** by',option.votedBy)
           //  console.log('isMultipleChoice',this.isMultipleChoice);

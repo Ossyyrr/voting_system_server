@@ -1,5 +1,6 @@
  const { Schema, model } = require('mongoose');
- // Esquema DB
+const OptionClass = require('../class/option');
+// Esquema DB
  const OptionSchema = Schema({
      title:{
          type: String,
@@ -23,4 +24,7 @@
      object.id = _id;
      return object;
  });
+
+ OptionSchema.loadClass(OptionClass); 
+
  module.exports = model('Options', OptionSchema) // Nombre de la tabla: Options
